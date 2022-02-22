@@ -30,6 +30,11 @@ while j['status'] == "IN_PROGRESS" or j['status'] == "DNS":
 with open(hostname + '.json', 'w') as outfile:
     outfile.write(json.dumps(j))
 
+
+if j['status'] == 'ERROR':
+  logging.info(('host %s, status %s, Message from API: %s') % ( hostname, j['status'], j['statusMessage']))
+  sys.exit()
+
 logging.info('writing to file %s' % (hostname + ".json"))
 
 v = { 'hostname': "",  
