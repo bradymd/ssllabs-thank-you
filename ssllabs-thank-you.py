@@ -15,7 +15,7 @@ url = 'https://api.ssllabs.com/api/v3/analyze?host=' + hostname + '&s=' + ipAddr
 response=requests.get(url)
 j = response.json()
 count=1
-sleep_count= [ 60, 60, 30, 10 ]
+sleep_count= [ 60, 60, 30, 10, 10 ]
 while j['status'] == "IN_PROGRESS" or j['status'] == "DNS":
   if count < 5:
     sleep=sleep_count[count]
@@ -28,7 +28,7 @@ while j['status'] == "IN_PROGRESS" or j['status'] == "DNS":
   j = response.json()
 
 with open(hostname + '.json', 'w') as outfile:
-    outfile.write(json.dumps(j))
+    outfile.write(json.dumps(j,indent=4))
 
 
 if j['status'] == 'ERROR':
