@@ -2,7 +2,7 @@
 import requests, json, sys, socket, time, logging
 
 debug=True
-hostname="www.example.com"
+#hostname="www.example.com"
 logging.basicConfig(level=logging.DEBUG)
 
 if len(sys.argv) == 2:
@@ -52,8 +52,7 @@ v = { 'hostname': "",
 	"serverName": hostname } 
 
 # Maybe I will find a better way of parsing this lot
-v['hostname'] = hostname
-v['ipAddress']  =  ipAddress
+v['hostname'] = j['host']
 e = j['endpoints']
 endpoints= e[0]
 v['grade'] = endpoints['grade']
@@ -63,6 +62,7 @@ try:
 except:
   endpoints['serverName'] = ""
 v['serverName'] = endpoints['serverName']
+v['ipAddress']  =  endpoints['ipAddress']
 v[ 'hasWarnings' ] = endpoints['hasWarnings']
 v['isExceptional' ]  = endpoints[ "isExceptional" ]
 details=endpoints['details']
